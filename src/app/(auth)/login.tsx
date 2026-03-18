@@ -47,6 +47,13 @@ export default function LoginScreen() {
                 <Text style={styles.linkButtonTextBold}>Sign Up</Text>
               </Text>
             </TouchableOpacity>
+            
+            <TouchableOpacity
+            style={styles.linkButton}
+            onPress={() => router.replace("/(tabs)")}
+            >
+              <Text style={styles.linkButtonTextBold}>PLAY AS GUEST</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </SafeAreaView>

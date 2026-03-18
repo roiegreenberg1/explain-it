@@ -2,6 +2,7 @@ import DismissKeyboard from "@/src/components/DismissKeyboard";
 import { useState } from "react";
 import {
   ActivityIndicator,
+  Alert,
   StyleSheet,
   Text,
   TextInput,
@@ -16,7 +17,31 @@ export default function OnboardingScreen() {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleComplete = () => {
+    if (!firstName || !lastName) {
+      Alert.alert("Error", "Please fill in all fields.");
+      return;
+    }
 
+    // First and last name validation, only English letters
+    const nameRegex = /^[a-zA-Z'-\s]+$/;
+    if (!nameRegex.test(firstName)) {
+      Alert.alert("Error", "First name can only contain English letters.");
+      return;
+    }
+
+    if (!nameRegex.test(lastName)) {
+      Alert.alert("Error", "Last name can only contain English letters.");
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      
+    } catch (error) {
+      Alert.alert("Error", "Failed to complete the onboarding. Please try again.")
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (
