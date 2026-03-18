@@ -43,6 +43,7 @@ export default function SignUpScreen() {
     setIsLoading(true);
     try {
       await signUp(email, password);
+      router.push("/(auth)/onboarding");
     } catch (error) {
       Alert.alert("Error", "Failed to sign up. Please try again.")
     } finally {
