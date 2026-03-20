@@ -1,4 +1,6 @@
 import DismissKeyboard from "@/src/components/DismissKeyboard";
+import { useAuth } from "@/src/context/AuthContext";
+import { useRouter } from "expo-router";
 import { useState } from "react";
 import {
   ActivityIndicator,
@@ -16,7 +18,11 @@ export default function OnboardingScreen() {
   const [lastName, setLastName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleComplete = () => {
+  const router = useRouter();
+
+  const { updateProfile } = useAuth();
+
+  const handleComplete = async () => {
     if (!firstName || !lastName) {
       Alert.alert("Error", "Please fill in all fields.");
       return;
@@ -36,8 +42,10 @@ export default function OnboardingScreen() {
 
     setIsLoading(true);
     try {
-      
+      await updateProfile(firstName, lastName, true);
+      router.replace("/(tabs)");
     } catch (error) {
+      console.log("Onboarding error:", error);
       Alert.alert("Error", "Failed to complete the onboarding. Please try again.")
     } finally {
       setIsLoading(false);

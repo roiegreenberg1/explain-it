@@ -1,6 +1,10 @@
 import DismissKeyboard from "@/src/components/DismissKeyboard";
+import { useAuth } from "@/src/context/AuthContext";
 import { useRouter } from "expo-router";
+import { useState } from "react";
 import {
+  ActivityIndicator,
+  Alert,
   StyleSheet,
   Text,
   TextInput,
@@ -11,6 +15,30 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function LoginScreen() {
   const router = useRouter();
+
+  const[email, setEmail] = useState("");
+  const[password, setPassword] = useState("");
+
+  const[isLoading, setIsLoading] = useState(false);
+
+  const { signIn } = useAuth();
+
+  const handleSignIn = async () => {
+    if (!email || !password) {
+      Alert.alert("Error", "Please fill in all fields.");
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      await signIn(email, password);
+      router.replace("/(tabs)");
+    } catch (error) {
+      Alert.alert("Error", "Invalid email or password.");
+    } finally {
+      setIsLoading(false);
+    }
+  }
   return (
     <DismissKeyboard>
       <SafeAreaView edges={["top", "bottom"]} style={styles.container}>
@@ -24,6 +52,8 @@ export default function LoginScreen() {
               keyboardType="email-address"
               autoComplete="email"
               autoCapitalize="none"
+              value={email}
+              onChangeText={setEmail}
               style={styles.input}
             />
             <TextInput
@@ -32,10 +62,16 @@ export default function LoginScreen() {
               autoComplete="password"
               secureTextEntry
               autoCapitalize="none"
+              value={password}
+              onChangeText={setPassword}
               style={styles.input}
             />
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>Sign In</Text>
+            <TouchableOpacity style={styles.button} onPress={handleSignIn}>
+              {isLoading ? (
+                <ActivityIndicator size={24} color="#fff" />
+              ) : (
+                <Text style={styles.buttonText}>Sign In</Text>
+              )}
             </TouchableOpacity>
 
             <TouchableOpacity
