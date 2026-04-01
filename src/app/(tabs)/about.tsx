@@ -63,15 +63,14 @@ export default function RulesScreen() {
   const isFirst = currentIndex === 0;
   const isLast = currentIndex === slides.length - 1;
   const slide = slides[currentIndex];
-
+  
   return (
     <SafeAreaView edges={["top", "bottom"]} style={styles.container}>
       <View style={styles.inner}>
+        {/* Page title */}
+        <Text style={styles.pageTitle}>How To Play</Text> 
 
-        {/* Header */}
-        <Text style={styles.pageTitle}>How To Play</Text>
-
-        {/* Dot indicators */}
+        {/* Slideshow logic */}
         <View style={styles.dots}>
           {slides.map((_, i) => (
             <View
@@ -81,17 +80,16 @@ export default function RulesScreen() {
           ))}
         </View>
 
-        {/* Slide title - fixed position */}
+        {/* Slide title */}
         <Text style={styles.slideTitle}>{slide.title}</Text>
 
-        {/* Slide content */}
         <View style={styles.slide}>
           {slide.content.map((line, i) => (
             <Text key={i} style={styles.slideLine}>{line}</Text>
           ))}
         </View>
 
-        {/* Navigation buttons */}
+        {/* Slideshow buttons */}
         <View style={styles.buttons}>
           <TouchableOpacity
             style={[styles.button, styles.buttonSecondary, isFirst && styles.buttonDisabled]}
@@ -118,6 +116,7 @@ export default function RulesScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#ffffff",
   },
   inner: {
     flex: 1,

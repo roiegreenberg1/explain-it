@@ -21,7 +21,7 @@ export default function LoginScreen() {
 
   const[isLoading, setIsLoading] = useState(false);
 
-  const { signIn } = useAuth();
+  const { signIn, signInAsGuest } = useAuth();
 
   const handleSignIn = async () => {
     if (!email || !password) {
@@ -85,8 +85,11 @@ export default function LoginScreen() {
             </TouchableOpacity>
             
             <TouchableOpacity
-            style={styles.linkButton}
-            onPress={() => router.replace("/(tabs)")}
+              style={styles.linkButton}
+              onPress={async () => {
+                await signInAsGuest();
+                router.replace("/(tabs)");
+              }}
             >
               <Text style={styles.linkButtonTextBold}>PLAY AS GUEST</Text>
             </TouchableOpacity>
