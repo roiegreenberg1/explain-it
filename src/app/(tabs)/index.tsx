@@ -2,6 +2,7 @@ import { useAuth } from "@/src/context/AuthContext";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import {
+  Image,
   Keyboard,
   KeyboardAvoidingView,
   Modal,
@@ -88,7 +89,11 @@ export default function Index() {
           </TouchableOpacity>
           )}
         </View>
-
+        {/* Image */}
+        <Image 
+          source={require("../../../assets/images/icon.png")}
+          style={styles.image}
+        />
         {/* Buttons */}
         <View style={styles.buttons}>
           <TouchableOpacity
@@ -115,7 +120,6 @@ export default function Index() {
         animationType="slide"
         onRequestClose={handleCloseNewGame}
       >
-        {/* ← CHANGED: single TouchableWithoutFeedback, no stopPropagation */}
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={styles.modalOverlay}>
             <View style={styles.modalContent}>
@@ -173,7 +177,6 @@ export default function Index() {
                   ))}
                 </ScrollView>
               ) : (
-                // ← CHANGED: input now matches join game styling
                 <TextInput
                   style={styles.input}
                   value={getValueForSlide(currentSlide.key)}
@@ -183,7 +186,7 @@ export default function Index() {
                 />
               )}
 
-              {/* Navigation buttons — same size/style as join game */}
+              {/* Navigation buttons */}
               <View style={styles.modalButtons}>
                 <TouchableOpacity
                   style={[styles.button, styles.buttonSecondary, { flex: 1 }]}
@@ -214,7 +217,6 @@ export default function Index() {
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={styles.modalOverlay}>
-            {/* ← CHANGED: KeyboardAvoidingView pushes sheet up when keyboard appears */}
             <KeyboardAvoidingView
               behavior={Platform.OS === "ios" ? "padding" : "height"}
             >
@@ -222,7 +224,6 @@ export default function Index() {
                 <Text style={styles.modalTitle}>Join Game</Text>
                 <Text style={styles.modalSubtitle}>Enter the 6 digit PIN from the host</Text>
 
-                {/* ← CHANGED: pin input now uses same input style as new game */}
                 <TextInput
                   style={[styles.input, styles.pinInput]}
                   value={pin}
@@ -257,12 +258,14 @@ export default function Index() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: 0,
     backgroundColor: "#ffffff",
   },
   inner: {
     flex: 1,
     padding: 24,
     justifyContent: "space-between",
+    paddingTop: 50,
   },
   header: {
     flexDirection: "row",
@@ -284,6 +287,12 @@ const styles = StyleSheet.create({
   upgradeButtonText: {
     fontSize: 13,
     fontWeight: "600",
+  },
+  image: {
+    width: "100%",
+    height: 200,
+    alignSelf: "center",
+    resizeMode: "contain",
   },
   buttons: {
     gap: 12,

@@ -96,6 +96,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 24,
     justifyContent: "space-between",
+    paddingTop: 50,
   },
   pageTitle: {
     fontSize: 32,

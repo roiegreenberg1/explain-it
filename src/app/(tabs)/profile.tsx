@@ -17,11 +17,9 @@ export default function Profile() {
       <View style={styles.inner}>
         <View>
           <Text style={styles.pageTitle}>Profile</Text>
-          <Text style={styles.name}>{user?.firstName} {user?.lastName}</Text>
-          <Text style={styles.email}>{user?.email}</Text>
-          <View style={styles.premiumBadge}>
-            <Text style={styles.premiumText}>⭐ Premium Member</Text>
-          </View>
+          <Text style={styles.name}>{user?.firstName} {user?.lastName} ⭐</Text>
+          <Text style={styles.email}>Email: {user?.email}</Text>
+          <Text style={styles.userThemes}>My themes:</Text>
         </View>
 
         <TouchableOpacity style={styles.signOutButton} onPress={handleSignOut}>
@@ -41,6 +39,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 24,
     justifyContent: "space-between",
+    paddingTop: 50,
   },
   pageTitle: {
     fontSize: 32,
@@ -53,21 +52,14 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   email: {
-    fontSize: 15,
+    fontSize: 16,
     color: "#666",
     marginBottom: 16,
   },
-  premiumBadge: {
-    backgroundColor: "#f5f5f5",
-    borderRadius: 12,
-    padding: 12,
-    borderWidth: 1,
-    borderColor: "#e0e0e0",
-    alignSelf: "flex-start",
-  },
-  premiumText: {
-    fontSize: 14,
-    fontWeight: "600",
+  userThemes: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginBottom: 16,
   },
   signOutButton: {
     backgroundColor: "#000",
